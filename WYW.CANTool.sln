@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.4.33122.133
+VisualStudioVersion = 17.4.33403.182
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WYW.CANTool", "src\WYW.CANTool.csproj", "{4A8BCB2E-DD3A-4C6E-A8AA-5AE6229526F9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WYW.CANTool", "src\WYW.CANTool\WYW.CANTool.csproj", "{4A8BCB2E-DD3A-4C6E-A8AA-5AE6229526F9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WYW.CAN", "src\WYW.CAN\WYW.CAN.csproj", "{9C5F54FE-8F00-4B3C-BA9F-95706426F5DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,11 +17,15 @@ Global
 		{4A8BCB2E-DD3A-4C6E-A8AA-5AE6229526F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A8BCB2E-DD3A-4C6E-A8AA-5AE6229526F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A8BCB2E-DD3A-4C6E-A8AA-5AE6229526F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C5F54FE-8F00-4B3C-BA9F-95706426F5DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C5F54FE-8F00-4B3C-BA9F-95706426F5DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C5F54FE-8F00-4B3C-BA9F-95706426F5DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C5F54FE-8F00-4B3C-BA9F-95706426F5DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {54086216-1AC9-4F07-8C34-7D93D7164F9C}
+		SolutionGuid = {A1B52951-8BAF-4C0F-B937-B3E2CB474A7B}
 	EndGlobalSection
 EndGlobal
