@@ -16,6 +16,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>GcgdErrorCode.resx</DependentUpon>
     </Compile>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Update="Properties\ZlgErrorCode.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -27,6 +32,10 @@
     <EmbeddedResource Update="Properties\GcgdErrorCode.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>GcgdErrorCode.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Properties\ZlgErrorCode.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

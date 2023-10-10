@@ -119,9 +119,9 @@ namespace WYW.CANTool.ViewModes
                         break;
                 }
                 Clear();
-                Device.DataReceived += CAN_DataReceived;
-                Device.DataTransmited += CAN_DataTransmit;
-                Device.StatusChanged += CAN_StatusChanged;
+                Device.DataReceivedEvent += CAN_DataReceived;
+                Device.DataTransmitedEvent += CAN_DataTransmit;
+                Device.StatusChangedEvent += CAN_StatusChanged;
 
                 Device.Open();
                 IsOpen = true;
@@ -142,9 +142,9 @@ namespace WYW.CANTool.ViewModes
                 {
                     Stop();
                     device.Close();
-                    device.DataReceived -= CAN_DataReceived;
-                    device.DataTransmited -= CAN_DataTransmit;
-                    device.StatusChanged -= CAN_StatusChanged;
+                    device.DataReceivedEvent -= CAN_DataReceived;
+                    device.DataTransmitedEvent -= CAN_DataTransmit;
+                    device.StatusChangedEvent -= CAN_StatusChanged;
 
                     device = null;
                     IsOpen = false;
@@ -235,7 +235,7 @@ namespace WYW.CANTool.ViewModes
         #endregion
 
         #region 事件
-        private void CAN_DataTransmit(object sender, CanDataTransmitEventArgs e)
+        private void CAN_DataTransmit(object sender, DataTransmitEventArgs e)
         {
             Config.Status.TotalSended += 1;
             if (!Config.Display.EnableDisplay)
@@ -253,7 +253,7 @@ namespace WYW.CANTool.ViewModes
                 });
             }
         }
-        private void CAN_DataReceived(object sender, CanDataReceivedEventArgs e)
+        private void CAN_DataReceived(object sender, DataReceivedEventArgs e)
         {
             Config.Status.TotalReceived += 1;
             if (!Config.Display.EnableDisplay)
@@ -271,7 +271,7 @@ namespace WYW.CANTool.ViewModes
                 });
             }
         }
-        private void CAN_StatusChanged(object sender, CanStatusChangedEventArgs e)
+        private void CAN_StatusChanged(object sender, StatusChangedEventArgs e)
         {
             lock (displayLocker)
             {

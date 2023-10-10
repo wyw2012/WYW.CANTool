@@ -46,7 +46,7 @@ namespace WYW.CAN
             InitPara();
             ClearBuffer();
             StartCan();
-            IsOpen = true;
+            IsEstablished=IsOpen = true;
             InvokeStatusChangedEvent("打开设备成功");
             new Thread(Receive).Start();
         }

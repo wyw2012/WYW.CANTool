@@ -9,9 +9,9 @@ namespace WYW.CAN
     /// <summary>
     /// CAN状态变化或者报错信息
     /// </summary>
-  public class CanStatusChangedEventArgs : EventArgs
+  public class StatusChangedEventArgs : EventArgs
     {
-        public CanStatusChangedEventArgs(string message)
+        public StatusChangedEventArgs(string message)
         {
             CreateTime = DateTime.Now;
             Message = message;

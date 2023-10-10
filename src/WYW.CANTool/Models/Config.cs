@@ -11,7 +11,6 @@ namespace WYW.CANTool.Models
 {
     internal class Config:ObservableObject
     {
-    
 
         public CanConfig CAN { get; } =new CanConfig();
         public DisplayConfig Display { get; } = new DisplayConfig();
@@ -31,7 +30,7 @@ namespace WYW.CANTool.Models
 
         private string portName;
         /// <summary>
-        /// 
+        /// CAN厂商，0 周立功；1 广成科技；2 创芯科技；3 艾泰科技；4 研华；5 CAN232
         /// </summary>
         public int CanManufacturer
         {

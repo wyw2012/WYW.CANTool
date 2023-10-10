@@ -46,7 +46,7 @@ namespace WYW.CAN
             {
                 serialPort.DataReceived += OnDataReceived;
                 serialPort.Open();
-                IsOpen = true;
+                IsOpen=IsEstablished = true;
                 InvokeStatusChangedEvent("打开设备成功");
             }
         }
@@ -56,7 +56,7 @@ namespace WYW.CAN
             {
                 serialPort.DataReceived -= OnDataReceived;
                 serialPort.Close();
-                IsOpen = false;
+                IsOpen = IsEstablished = false;
                 InvokeStatusChangedEvent("关闭设备成功");
             }
         }
@@ -88,6 +88,10 @@ namespace WYW.CAN
             {
                 serialPort.Write(bytes, 0, FixLength);
                 InvokeDataTransmitEvent(id, data, isExternFrame, isRemoteFrame, true);
+                if(IsSelfTestMode)
+                {
+                    InvokeDataReceivedEvent(id, data, isExternFrame?1:0, isRemoteFrame?1:0);
+                }
                 return true;
             }
             return false;
@@ -132,7 +136,7 @@ namespace WYW.CAN
                     var externFlag = fullPacket[0] >> 7;
                     var remoteFlag = fullPacket[0] >> 6;
                     var id = fullPacket[4] | (fullPacket[3] << 8) | (fullPacket[2] << 16) | (fullPacket[1] << 24);
-                    CanDataReceivedEventArgs arg = new CanDataReceivedEventArgs(id, externFlag, remoteFlag);
+                    DataReceivedEventArgs arg = new DataReceivedEventArgs(id, externFlag, remoteFlag);
 
                     byte[] data = new byte[0];
                     int validLength = fullPacket[0] & 0x0F;

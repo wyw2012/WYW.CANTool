@@ -30,7 +30,7 @@ namespace WYW.CANTool.Views
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this.Title = "CAN调试助手 V1.0.1";
-            if (SystemParameters.PrimaryScreenHeight < 800)
+            if (SystemParameters.WorkArea.Height < 900)
             {
                 this.Height = SystemParameters.WorkArea.Height;
                 this.Width = this.Height * 4 / 3;

@@ -107,10 +107,10 @@
 
 
                                         <!--CAN 232-->
-                                        <StackPanel DataContext="{Binding Config.CAN}" Visibility="{Binding CanManufacturer,Converter={StaticResource ConstToVisibilityConverter},ConverterParameter=5}">
-                                            <ComboBox wyw:ComboBoxElement.Title="串口号"   SelectedItem="{Binding PortName}" 
-                                                  ItemsSource="{Binding PortName}"/>
-                                            <ComboBox wyw:ComboBoxElement.Title="波特率（bps）"   SelectedItem="{Binding SerialBaudRate}" 
+                                        <StackPanel Visibility="{Binding Config.CAN.CanManufacturer,Converter={StaticResource ConstToVisibilityConverter},ConverterParameter=5}">
+                                            <ComboBox wyw:ComboBoxElement.Title="串口号"   SelectedItem="{Binding Config.CAN.PortName}" 
+                                                  ItemsSource="{Binding PortNames}"/>
+                                            <ComboBox wyw:ComboBoxElement.Title="波特率（bps）"   SelectedItem="{Binding Config.CAN.SerialBaudRate}" 
                                           ItemsSource="{StaticResource SerialBaudRateCollection}"/>
                                         </StackPanel>
                                     </StackPanel>

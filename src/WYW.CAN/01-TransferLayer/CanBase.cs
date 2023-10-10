@@ -15,29 +15,29 @@ using System.Windows;
 //***************************
 namespace WYW.CAN
 {
-    public abstract class CanBase: ObservableObject
+    public abstract class CanBase : ObservableObject
     {
         public CanBase()
         {
             SetDllDirectory();
         }
         #region 事件
-        public delegate void CanReceivedEventHandler(object sender, CanDataReceivedEventArgs e);
-        public delegate void CanTransmitEventHandler(object sender, CanDataTransmitEventArgs e);
-        public delegate void CanStatusChangedEventHandler(object sender, CanStatusChangedEventArgs e);
+        public delegate void CanReceivedEventHandler(object sender, DataReceivedEventArgs e);
+        public delegate void CanTransmitEventHandler(object sender, DataTransmitEventArgs e);
+        public delegate void CanStatusChangedEventHandler(object sender, StatusChangedEventArgs e);
 
         /// <summary>
         /// 数据接收事件
         /// </summary>
-        public event CanReceivedEventHandler DataReceived;
+        public event CanReceivedEventHandler DataReceivedEvent;
         /// <summary>
         /// 数据发送事件
         /// </summary>
-        public event CanTransmitEventHandler DataTransmited;
+        public event CanTransmitEventHandler DataTransmitedEvent;
         /// <summary>
         /// 状态改变事件
         /// </summary>
-        public event CanStatusChangedEventHandler StatusChanged;
+        public event CanStatusChangedEventHandler StatusChangedEvent;
 
         #endregion
 
@@ -46,10 +46,19 @@ namespace WYW.CAN
         private int receivedInterval = 1;
         private int timeout = 2;
         private bool logEnabled;
+        private bool isEstablished;
+        private bool isOpen;
         /// <summary>
         /// 设备是否打开
         /// </summary>
-        public bool IsOpen { get; protected set; }
+        /// <summary>
+        /// 是否启动，建立连接请使用IsEstablished属性
+        /// </summary>
+        public bool IsOpen
+        {
+            get => isOpen;
+            protected set => SetProperty(ref isOpen, value);
+        }
         /// <summary>
         /// 波特率，单位kpbs
         /// </summary>
@@ -76,10 +85,26 @@ namespace WYW.CAN
         /// </summary>
         public bool LogEnabled
         {
-            get =>  logEnabled;
-            set => SetProperty(ref  logEnabled, value);
+            get => logEnabled;
+            set => SetProperty(ref logEnabled, value);
         }
+        /// <summary>
+        /// 通讯是否建立连接，这里只是传输层建立连接，应用层使用IsConnected
+        /// </summary>
+        public bool IsEstablished
+        {
+            get => isEstablished;
+            set => SetProperty(ref isEstablished, value);
+        }
+        /// <summary>
+        /// 日志文件夹，绝对或者相对路径
+        /// </summary>
+        public string LogFolder { get; set; } = "Log\\CAN";
 
+        /// <summary>
+        /// 是否是自测模式，自测模式下自发自收
+        /// </summary>
+        public bool IsSelfTestMode { get; set; }
         #endregion
 
         #region  公共方法
@@ -107,43 +132,43 @@ namespace WYW.CAN
         #endregion
 
         #region 保护方法
-        
+
         protected virtual void SetDllDirectory()
         {
 
         }
         protected void InvokeDataReceivedEvent(int id, byte[] data, int externFlag, int remoteFlag)
         {
-            CanDataReceivedEventArgs arg = new CanDataReceivedEventArgs(id, externFlag, remoteFlag)
+            DataReceivedEventArgs arg = new DataReceivedEventArgs(id, externFlag, remoteFlag)
             {
                 Data = data
             };
-            if(LogEnabled)
+            if (LogEnabled)
             {
-                Logger.WriteLine("CAN",arg.ToString());
+                Logger.WriteLine(LogFolder, arg.ToString());
             }
-            DataReceived?.Invoke(null, arg);
+            DataReceivedEvent?.Invoke(null, arg);
         }
         protected void InvokeDataTransmitEvent(int id, byte[] data, bool isExternFrame, bool isRemoteFrame, bool result)
         {
-            CanDataTransmitEventArgs arg = new CanDataTransmitEventArgs(id, isExternFrame ? 1 : 0, isRemoteFrame ? 1 : 0, result)
+            DataTransmitEventArgs arg = new DataTransmitEventArgs(id, isExternFrame ? 1 : 0, isRemoteFrame ? 1 : 0, result)
             {
                 Data = data
             };
             if (LogEnabled)
             {
-                Logger.WriteLine("CAN", arg.ToString());
+                Logger.WriteLine(LogFolder, arg.ToString());
             }
-            DataTransmited?.Invoke(null, arg);
+            DataTransmitedEvent?.Invoke(null, arg);
         }
         protected void InvokeStatusChangedEvent(string message)
         {
-            CanStatusChangedEventArgs arg = new CanStatusChangedEventArgs(message);
+            StatusChangedEventArgs arg = new StatusChangedEventArgs(message);
             if (LogEnabled)
             {
-                Logger.WriteLine("CAN", arg.ToString());
+                Logger.WriteLine(LogFolder, arg.ToString());
             }
-            StatusChanged?.Invoke(null, arg);
+            StatusChangedEvent?.Invoke(null, arg);
         }
         #endregion
     }
